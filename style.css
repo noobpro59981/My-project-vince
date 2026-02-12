@@ -1,0 +1,134 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #0a0a0a;
+    background-image: radial-gradient(circle at top, #1a1a1a 0%, #0a0a0a 100%);
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px; /* Mobile-first width */
+    text-align: center;
+}
+
+/* Typography & Links */
+h1.logo {
+    color: #00ff88; /* Keeping the original logo green for authenticity */
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+/* Red Links per your request */
+a {
+    color: #ff3333; /* Bright Red */
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+a:hover {
+    color: #ff6666;
+    text-shadow: 0 0 8px #ff3333;
+}
+
+/* Badges */
+.stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.stat-badge {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.green { color: #00ff88; background: rgba(0, 255, 136, 0.1); }
+.blue { color: #00d9ff; background: rgba(0, 217, 255, 0.1); }
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #00ff88;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+    box-shadow: 0 0 5px #00ff88;
+}
+
+/* Card Styling */
+.section-title {
+    text-align: left;
+    font-size: 1.1rem;
+    margin: 20px 0 10px 5px;
+    color: #00ff88;
+}
+
+.card {
+    background: #151515;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    border-color: #ff3333; /* Glow red on hover */
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: #00ff88;
+    margin-bottom: 15px;
+}
+
+/* Buttons (Bright Red Theme) */
+.btn-download, .btn-action {
+    display: block;
+    margin-top: 15px;
+    background: #ff3333;
+    color: white !important;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-download:hover, .btn-action:hover {
+    background: #cc0000;
+    text-shadow: none;
+}
+
+/* Footer */
+footer {
+    margin-top: 40px;
+    font-size: 0.7rem;
+    color: #444;
+    border-top: 1px solid #222;
+    padding-top: 20px;
+}
