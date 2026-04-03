@@ -1,67 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>CODM ACCOUNT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VinceZyn | CODM Admin</title>
+    <style>
+        :root {
+            --js-yellow: #f7df1e;
+            --bg: #0a0a0a;
+            --card: #151515;
+            --neon-blue: #00d8ff;
+        }
 
-  <style>
-    body{
-      margin:0;
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background:#000;
-      font-family:monospace;
-      color:#00ffcc;
-    }
+        body {
+            background-color: var(--bg);
+            color: #e0e0e0;
+            font-family: 'Consolas', monospace;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
 
-    .panel{
-      background:#0a0a0a;
-      padding:25px;
-      border-radius:15px;
-      width:320px;
-      box-shadow:0 0 20px #00ffcc;
-    }
+        .container {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            width: 450px;
+            box-shadow: 0 15px-35px rgba(0,0,0,0.7);
+            text-align: center;
+        }
 
-    h1{
-      text-align:center;
-      font-size:18px;
-      margin-bottom:15px;
-    }
+        h2 { color: var(--js-yellow); letter-spacing: 2px; }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #000;
+            border: 1px solid #444;
+            color: var(--js-yellow);
+            border-radius: 5px;
+            text-align: center;
+        }
 
-    .box{
-      background:#111;
-      padding:15px;
-      border-radius:10px;
-      line-height:1.6;
-    }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
 
-    .label{
-      color:#00ffaa;
-    }
-  </style>
+        .btn-login { background: var(--js-yellow); color: #000; }
+        .btn-gen { background: #44ff44; color: #000; }
+        .btn-bulk { background: var(--neon-blue); color: #000; margin-top: 5px; }
 
+        #adminDashboard { display: none; }
+
+        /* Key List Area */
+        .key-box {
+            background: #000;
+            border: 1px solid #222;
+            height: 200px;
+            margin-top: 20px;
+            padding: 10px;
+            overflow-y: scroll;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #44ff44;
+        }
+
+        .single-key {
+            background: #111;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px dashed var(--js-yellow);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .copy-btn {
+            font-size: 0.7rem;
+            color: var(--neon-blue);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="panel">
-  <h1>CODM ACCOUNT</h1>
+    <div class="container" id="loginBox">
+        <h2>ADMIN LOGIN</h2>
+        <input type="password" id="adminPass" placeholder="ENTER ADMIN PASSWORD">
+        <button class="btn btn-login" onclick="login()">Access Database</button>
+    </div>
 
-  <div class="box">
-    <span class="label">Account:</span> zczpox1248<br>
-    <span class="label">Password:</span> tonyssouya2008<br>
-    <span class="label">UID:</span> 562348283<br>
-    <span class="label">Username:</span> zczpox1248<br>
-    <span class="label">Nickname:</span> <br>
-    <span class="label">Email:</span> son****@gmail.com<br>
-    <span class="label">Phone:</span> ****8977<br>
-    <span class="label">Country:</span> VN<br>
-    <span class="label">Level:</span> 3<br>
-    <span class="label">Account Status:</span> Active<br>
-    <span class="label">Is Clean:</span> true
-  </div>
-</div>
+    <div class="container" id="adminDashboard">
+        <h2>KEY GENERATOR</h2>
+        <p style="font-size: 0.8rem;">Format: CODM-XXXXXXXX</p>
+
+        <div class="single-key" id="latestKey">CODM-XXXXXXXX</div>
+        <button class="btn btn-gen" onclick="generateOne()">Generate 1 Key</button>
+        <button class="btn btn-bulk" onclick="generateBulk(1000)">Generate 1,000 Keys</button>
+        
+        <div class="key-box" id="keyList">
+            System Ready... Waiting for command.
+        </div>
+
+        <p style="font-size: 0.7rem; color: #666; margin-top: 15px;">
+            Logged in as: <b>VinceZyn_Admin</b> | <a href="#" onclick="location.reload()" style="color:red">Logout</a>
+        </p>
+    </div>
+
+    <script>
+        const PASS = "admin123";
+
+        function login() {
+            if(document.getElementById('adminPass').value === PASS) {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+            } else {
+                alert("Access Denied!");
+            }
+        }
+
+        function createRandomString(length) {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let result = "";
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        function generateOne() {
+            const newKey = "CODM-" + createRandomString(8);
+            document.getElementById('latestKey').innerText = newKey;
+            
+            // Add to the list below
+            const list = document.getElementById('keyList');
+            list.innerHTML = `<div>> ${newKey} (Ready)</div>` + list.innerHTML;
+        }
+
+        function generateBulk(count) {
+            const list = document.getElementById('keyList');
+            list.innerHTML = "Generating 1,000 keys...<br>";
+            let bulkHtml = "";
+            
+            for(let i = 0; i < count; i++) {
+                const k = "CODM-" + createRandomString(8);
+                bulkHtml += `<div>${i+1}. ${k}</div>`;
+            }
+            
+            list.innerHTML = bulkHtml;
+            document.getElementById('latestKey').innerText = "1,000 KEYS CREATED";
+            alert("Success: 1,000 unique keys generated!");
+        }
+    </script>
 
 </body>
 </html>
